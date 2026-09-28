@@ -6,6 +6,12 @@ A responsive movie and TV discovery site with trending titles, multi-criteria fi
 
 Open `index.html` in a browser, or use a local static server such as the VS Code Live Server extension. The site works without API keys using its clearly labeled preview catalog. The watchlist and selected region are saved in browser local storage.
 
+## Deploy to Render
+
+This project includes a Render Blueprint (`render.yaml`) for a static site. From the Render Dashboard, create a new **Blueprint** and connect the `Buufu/WDD330` GitHub repository. Render will build the site with `node scripts/build.mjs`, publish the generated `dist` directory, and auto-deploy updates from `main`.
+
+The build includes only the discovery page, watchlist page, CSS, and JavaScript. It does not publish the wireframe or project documentation.
+
 ## Connect live data
 
 Open **API settings** from the gear icon or footer, then add:
