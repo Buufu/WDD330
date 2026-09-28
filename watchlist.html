@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101011">
+  <meta name="description" content="Your saved movies and TV shows, ready for your next movie night.">
+  <title>My Watchlist — MovieFInder</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <script defer src="js/data.js"></script>
+  <script defer src="js/storage.js"></script>
+  <script defer src="js/api.js"></script>
+  <script defer src="js/app.js"></script>
+</head>
+<body data-page="watchlist">
+  <header class="site-header">
+    <a class="brand" href="index.html" aria-label="MovieFInder home">
+      <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 3.8h14a1.7 1.7 0 0 1 1.7 1.7v13A1.7 1.7 0 0 1 19 20.2H5a1.7 1.7 0 0 1-1.7-1.7v-13A1.7 1.7 0 0 1 5 3.8Z"/><path d="m10 8 5.2 4-5.2 4V8Z"/><path d="M3.5 8h4M3.5 12h4M3.5 16h4"/></svg></span>
+      <span>Movie<span class="brand-accent">FInder</span></span>
+    </a>
+    <nav class="primary-nav" aria-label="Main navigation">
+      <a class="nav-link" href="index.html">Discover</a>
+      <a class="nav-link is-active" href="watchlist.html" aria-current="page">My watchlist <span class="watchlist-count" data-watchlist-count>0</span></a>
+    </nav>
+    <div class="header-actions">
+      <label class="region-control"><span class="sr-only">Streaming region</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s7-6.1 7-12A7 7 0 0 0 5 9c0 5.9 7 12 7 12Z"/><circle cx="12" cy="9" r="2.3"/></svg>
+        <select id="region-select" aria-label="Streaming region"><option value="US">United States</option><option value="GB">United Kingdom</option><option value="CA">Canada</option><option value="AU">Australia</option><option value="NZ">New Zealand</option><option value="DE">Germany</option><option value="FR">France</option><option value="IN">India</option></select>
+      </label>
+      <button class="icon-button settings-button" type="button" data-open-settings aria-label="API settings" title="API settings"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="m19.4 15 .1.1 1.4 1.1-1.4 2.4-1.7-.6a8.4 8.4 0 0 1-1.5.9l-.3 1.8h-2.8l-.3-1.8a8.4 8.4 0 0 1-1.5-.9l-1.7.6-1.4-2.4 1.4-1.1a7.5 7.5 0 0 1 0-1.8l-1.4-1.1 1.4-2.4 1.7.6a8.4 8.4 0 0 1 1.5-.9l.3-1.8h2.8l.3 1.8a8.4 8.4 0 0 1 1.5.9l1.7-.6 1.4 2.4-1.4 1.1a7.5 7.5 0 0 1 0 1.8Z"/></svg></button>
+      <span class="profile-avatar" aria-label="Andrew Ssebuufu">AS</span>
+    </div>
+  </header>
+  <main class="page-shell watchlist-page">
+    <section class="watchlist-heading">
+      <p class="eyebrow"><span class="live-dot"></span> YOUR PERSONAL COLLECTION</p>
+      <h1>Your watchlist<span class="heading-spark">.</span></h1>
+      <p class="watchlist-intro">Everything you've been meaning to watch, all in one place.</p>
+    </section>
+    <section class="discovery-section watchlist-content" aria-labelledby="saved-title">
+      <div class="section-topline">
+        <div><p class="eyebrow section-eyebrow">SAVED FOR A GOOD NIGHT IN</p><h2 id="saved-title">On your list <span class="watchlist-total" id="watchlist-total">0 titles</span></h2></div>
+        <a class="back-to-discover" href="index.html">← Find something to watch</a>
+      </div>
+      <div class="media-grid" id="media-grid" aria-live="polite"></div>
+      <div class="empty-state watchlist-empty" id="empty-state" hidden>
+        <span class="empty-icon">♡</span>
+        <h3>Your next favorite goes here</h3>
+        <p>Save movies and shows as you browse, and they'll be waiting right here.</p>
+        <a class="button-primary empty-cta" href="index.html">Explore what's trending <span>→</span></a>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer"><a class="brand footer-brand" href="index.html"><span class="brand-mark" aria-hidden="true">M</span><span>Movie<span class="brand-accent">FInder</span></span></a><p>Made for your next movie night. <span>Streaming info may vary by region.</span></p><button class="footer-settings" type="button" data-open-settings>Connect your API keys</button></footer>
+  <dialog class="app-dialog detail-dialog" id="detail-dialog" aria-labelledby="detail-title"><button class="dialog-close" type="button" data-close-dialog aria-label="Close details">×</button><div id="detail-content"></div></dialog>
+  <dialog class="app-dialog settings-dialog" id="settings-dialog" aria-labelledby="settings-title">
+    <button class="dialog-close" type="button" data-close-dialog aria-label="Close settings">×</button>
+    <div class="settings-heading"><span class="settings-icon">⌘</span><p class="eyebrow">PERSONALIZE YOUR EXPERIENCE</p><h2 id="settings-title">Connect your services</h2><p>Use your own free API keys to load current titles, trailers, and streaming availability.</p></div>
+    <form id="settings-form"><label class="form-label" for="tmdb-key">TMDB API key <span>Required for live movies and trailers</span></label><input class="api-key-input" id="tmdb-key" name="tmdb" type="password" autocomplete="off" placeholder="Paste your TMDB API key"><label class="form-label" for="watchmode-key">Watchmode API key <span>Optional · live streaming availability</span></label><input class="api-key-input" id="watchmode-key" name="watchmode" type="password" autocomplete="off" placeholder="Paste your Watchmode API key"><p class="key-notice">Keys are stored only in this browser. Don't use personal API keys in a public deployment.</p><div class="settings-actions"><button class="button-secondary" type="button" data-clear-keys>Use preview data</button><button class="button-primary" type="submit">Save keys <span>→</span></button></div></form>
+    <p class="api-help">Get a free key: <a href="https://www.themoviedb.org/settings/api" target="_blank" rel="noopener noreferrer">TMDB ↗</a> · <a href="https://api.watchmode.com/" target="_blank" rel="noopener noreferrer">Watchmode ↗</a></p>
+  </dialog>
+  <dialog class="app-dialog trailer-dialog" id="trailer-dialog" aria-label="Movie trailer"><button class="dialog-close trailer-close" type="button" data-close-dialog aria-label="Close trailer">×</button><div class="trailer-frame" id="trailer-frame"></div></dialog>
+  <div class="toast-region" id="toast-region" aria-live="polite" aria-atomic="true"></div>
+</body>
+</html>
